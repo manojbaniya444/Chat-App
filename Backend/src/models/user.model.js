@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password must required!"],
       type: String,
     },
+    // file upload will be available soon
     url: {
       type: String,
     },
