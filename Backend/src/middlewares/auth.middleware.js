@@ -2,7 +2,15 @@ const jwt = require("jsonwebtoken");
 
 const verifyAuthentication = async (req, res, next) => {
   // getting the Bearer token from the header
+
   const bearerToken = req.headers.authorization;
+
+  if (!bearerToken) {
+    return res
+      .status(402)
+      .json({ success: false, message: "User not authenticated." });
+  }
+
   const token = bearerToken.split(" ")[1];
 
   try {

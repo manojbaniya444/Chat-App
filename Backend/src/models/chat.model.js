@@ -4,17 +4,18 @@ const chatSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      // required: true, chat name can be later edited
     },
     lastMessage: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "Message",
     },
     participants: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        required: true,
       },
     ],
     isGroupChat: {

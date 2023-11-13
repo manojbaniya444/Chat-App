@@ -14,7 +14,7 @@ const createAccountController = async (req, res) => {
   }
 
   // checking if the username is already in use
-  const duplicateUser = await User.find({ username });
+  const duplicateUser = await User.findOne({ username });
   if (duplicateUser)
     return res.status(400).json({
       success: false,
@@ -28,13 +28,12 @@ const createAccountController = async (req, res) => {
   try {
     const newUser = new User({ username, fullName, password: hashedPassword });
     await newUser.save();
+    res
+      .status(200)
+      .json({ success: true, message: "User created successfully", newUser });
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });
   }
-
-  res
-    .status(200)
-    .json({ success: true, message: "User created successfully", newUser });
 };
 
 //----->controller for signIn <Login>
@@ -76,4 +75,16 @@ const loginController = async (req, res) => {
   });
 };
 
-module.exports = { createAccountController, loginController };
+//----->get all users controller
+const getAllUsersController = async (req, res) => {
+  const users = await User.find({});
+  return res
+    .status(200)
+    .json({ success: true, message: "Fetch all user success.", users });
+};
+
+module.exports = {
+  createAccountController,
+  loginController,
+  getAllUsersController,
+};
