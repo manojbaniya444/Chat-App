@@ -7,7 +7,7 @@ const FriendList = () => {
     <div className="flex gap-4 p-2">
       {fakeList.map((item, index) => {
         return (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1" key={index}>
             <Avatar />
             <p className="text-xs font-light">{item}</p>
           </div>

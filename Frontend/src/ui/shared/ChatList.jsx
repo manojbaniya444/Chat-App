@@ -34,7 +34,10 @@ const ChatList = () => {
       <h1 className="text-lg font-semibold">Recent Chats</h1>
       {data.map((item, index) => {
         return (
-          <section className="bg-gray-600 flex gap-2 items-center p-1 rounded-md">
+          <section
+            className="bg-gray-600 flex gap-2 items-center p-1 rounded-md"
+            key={index}
+          >
             <Avatar />
             <div className="bg-gray-900 text-white rounded-md p-1 flex-1">
               <h3 className="font-medium text-lg">{item.name}</h3>
