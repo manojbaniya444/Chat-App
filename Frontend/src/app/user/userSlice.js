@@ -5,6 +5,8 @@ const initialState = {
   loading: false,
   authData: null,
   error: null,
+  token: null,
+  success: false,
 };
 
 // reducers function
@@ -30,10 +32,12 @@ const userSlice = createSlice({
       .addCase(createUser.pending, (state, action) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
+        state.success = true;
         // here response.data.newUser which contain the userformdata
       })
       .addCase(createUser.rejected, (state, action) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createUser } from "../../app/index";
 import { Button } from "../../ui";
@@ -14,13 +14,27 @@ const CreateAccount = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, authData, error } = useSelector((state) => state.user);
+  const { loading, authData, error, success } = useSelector(
+    (state) => state.user
+  );
 
   // calling the dispatch in this function with user data to create a new account
-  const createUserHandler = async (e) => {
+  const createUserHandler = (e) => {
     e.preventDefault();
-    await dispatch(createUser(formData));
+    dispatch(createUser(formData));
   };
+
+  // check the status of success to navigate and perform UI updates
+  useEffect(() => {
+    if (success && !loading) {
+      setFormData({
+        username: "",
+        password: "",
+        fullName: "",
+      });
+      navigate("/");
+    }
+  }, [success]);
 
   return (
     <div className="flex items-center justify-center w-screen h-screen flex-col gap-2">
@@ -29,6 +43,7 @@ const CreateAccount = () => {
         className="bg-gray-200 p-5 flex flex-col gap-2"
         onSubmit={(e) => createUserHandler(e)}
       >
+        {/* error message to show if any */}
         {error && (
           <h3 className="text-base font-medium text-red-700">{error}</h3>
         )}
