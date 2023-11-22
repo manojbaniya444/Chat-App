@@ -29,6 +29,7 @@ const Login = () => {
         password: "",
       });
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(authData));
       navigate("/");
     }
   }, [loginSuccess]);

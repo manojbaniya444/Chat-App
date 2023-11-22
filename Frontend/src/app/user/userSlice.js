@@ -1,11 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserThunk, loginUserThunk } from "./userAPI";
 
+const userToken = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : null;
+const userData = localStorage.getItem("user")
+  ? localStorage.getItem("user")
+  : null;
+
 const initialState = {
   loading: false,
-  authData: null,
+  authData: JSON.parse(userData),
   error: null,
-  token: null,
+  token: userToken,
   loginSuccess: false,
   signupSuccess: false,
 };

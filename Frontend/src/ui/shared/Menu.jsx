@@ -31,7 +31,7 @@ const Menu = () => {
       {list.map((item, index) => {
         return (
           <div className="flex flex-col gap-1 items-center" key={index}>
-            <Link to="/login">
+            <Link to="/">
               <div key={index}>
                 <IconButton>{item.src}</IconButton>
               </div>
