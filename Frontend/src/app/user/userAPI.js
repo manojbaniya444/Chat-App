@@ -8,6 +8,14 @@ export const createUserThunk = async (userData) => {
     );
     return response;
   } catch (error) {
-    return error
+    return error;
+  }
+};
+
+export const loginUserThunk = async (userData) => {
+  try {
+    return await axios.post("http://localhost:8080/api/user/login", userData);
+  } catch (error) {
+    return error;
   }
 };

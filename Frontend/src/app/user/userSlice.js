@@ -1,15 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserThunk } from "./userAPI";
+import { createUserThunk, loginUserThunk } from "./userAPI";
 
 const initialState = {
   loading: false,
   authData: null,
   error: null,
   token: null,
-  success: false,
+  loginSuccess: false,
+  signupSuccess: false,
 };
 
 // reducers function
+//--->Signup function
 export const createUser = createAsyncThunk(
   "user/signup",
   async (userData, { rejectWithValue }) => {
@@ -23,6 +25,19 @@ export const createUser = createAsyncThunk(
   }
 );
 
+//--->Login Function
+export const loginUser = createAsyncThunk(
+  "user.login",
+  async (userData, { rejectWithValue }) => {
+    const response = await loginUserThunk(userData);
+
+    if (response.status === 200) {
+      return response.data;
+    }
+    return rejectWithValue(response?.response.data.message);
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -32,12 +47,12 @@ const userSlice = createSlice({
       .addCase(createUser.pending, (state, action) => {
         state.loading = true;
         state.error = null;
-        state.success = false;
+        state.signupSuccess = false;
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.success = true;
+        state.signupSuccess = true;
         // here response.data.newUser which contain the userformdata
       })
       .addCase(createUser.rejected, (state, action) => {
@@ -46,6 +61,23 @@ const userSlice = createSlice({
         state.loading = false;
         // Here use the error message from the response
         // error.response?.data.message
+      })
+      .addCase(loginUser.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+        state.loginSuccess = false;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.loginSuccess = true;
+        state.authData = action.payload.registeredUser;
+        state.token = action.payload.token;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.loginSuccess = false;
       });
   },
 });

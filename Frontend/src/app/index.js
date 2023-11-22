@@ -1,1 +1,1 @@
-export { createUser } from "./user/userSlice";
+export { createUser, loginUser } from "./user/userSlice";

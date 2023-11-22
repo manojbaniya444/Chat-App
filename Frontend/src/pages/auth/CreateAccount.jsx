@@ -14,7 +14,7 @@ const CreateAccount = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, authData, error, success } = useSelector(
+  const { loading, authData, error, signupSuccess } = useSelector(
     (state) => state.user
   );
 
@@ -26,15 +26,15 @@ const CreateAccount = () => {
 
   // check the status of success to navigate and perform UI updates
   useEffect(() => {
-    if (success && !loading) {
+    if (signupSuccess && !loading) {
       setFormData({
         username: "",
         password: "",
         fullName: "",
       });
-      navigate("/");
+      navigate("/login");
     }
-  }, [success]);
+  }, [signupSuccess]);
 
   return (
     <div className="flex items-center justify-center w-screen h-screen flex-col gap-2">
