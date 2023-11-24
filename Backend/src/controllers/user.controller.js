@@ -1,16 +1,25 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const generateToken = require("../utils/generateToken");
+const { cloudinaryUploader } = require("../utils/cloudinary");
 
 //----->controller for creating new account <signUp>
 const createAccountController = async (req, res) => {
   const { username, fullName, password, address, bio } = req.body;
+  const urlLocalPath = req.files?.url[0]?.path;
 
   // validating user data from the form
   if (!username || !fullName || !password) {
     return res
       .status(400)
       .json({ success: false, message: "Provide all the required fields." });
+  }
+
+  // validating the profile picture
+  if (!urlLocalPath) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Avatar is required." });
   }
 
   // checking if the username is already in use
@@ -24,9 +33,24 @@ const createAccountController = async (req, res) => {
   // hash the password before storing in the database
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  // upload the profile picture in the cloudinary
+  const avatarUrl = await cloudinaryUploader(urlLocalPath);
+
+  // check if the cloudinary url is present or not
+  if (!avatarUrl) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Avatar url not present" });
+  }
+
   // creating newUser with the form data
   try {
-    const newUser = new User({ username, fullName, password: hashedPassword });
+    const newUser = new User({
+      username,
+      fullName,
+      password: hashedPassword,
+      url: avatarUrl.url,
+    });
     await newUser.save();
     res
       .status(200)

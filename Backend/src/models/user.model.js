@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     // file upload will be available soon
     url: {
       type: String,
+      required: [true, "Profile url require!"],
     },
     address: {
       type: String,
