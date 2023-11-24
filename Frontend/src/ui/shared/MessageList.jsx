@@ -49,7 +49,13 @@ const MessageList = () => {
             }
           >
             {item.id % 2 === 0 && <Avatar />}
-            <p className={item.id % 2 === 0 ? "bg-green-900 p-2 rounded-md" : "bg-blue-900"}>
+            <p
+              className={
+                item.id % 2 === 0
+                  ? "bg-green-900 p-2 rounded-md"
+                  : "bg-blue-900"
+              }
+            >
               {item.message}
             </p>
           </div>

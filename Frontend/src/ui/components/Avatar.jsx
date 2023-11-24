@@ -1,13 +1,9 @@
 import React from "react";
-import img from  "../../assets/blank-profile.png"
+import image from "../../assets/blank-profile.png";
 
-const Avatar = () => {
+const Avatar = ({ src = image }) => {
   return (
-    <img
-      src={img}
-      alt=""
-      className="w-9 h-9 rounded-full object-cover "
-    />
+    <img src={src} alt="" className="w-9 h-9 rounded-full object-cover " />
   );
 };
 

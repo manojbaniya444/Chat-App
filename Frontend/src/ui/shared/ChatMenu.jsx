@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { GrNotification } from "react-icons/gr";
 import { Avatar, IconButton, MobileMenu } from "../../ui";
 import { AiOutlineMenu } from "react-icons/ai";
 
 const ChatMenu = () => {
   const [mobileView, setMobileView] = useState(false);
+
+  const { authData } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   return (
     <>
       {mobileView && <MobileMenu setMobileView={setMobileView} />}
@@ -19,7 +24,9 @@ const ChatMenu = () => {
         <IconButton>
           <GrNotification className="text-2xl" />
         </IconButton>
-        <Avatar />
+        <div onClick={() => alert("Logout dispatch")}>
+          <Avatar src={authData.url} />
+        </div>
       </div>
     </>
   );
