@@ -23,6 +23,9 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (authData && token) {
+      navigate("/", { replace: true });
+    }
     if (loginSuccess && !loading) {
       setFormData({
         username: "",
@@ -30,9 +33,9 @@ const Login = () => {
       });
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(authData));
-      navigate("/");
+      navigate("/", { replace: true });
     }
-  }, [loginSuccess]);
+  }, [loginSuccess, authData, token]);
 
   return (
     <div className="flex items-center justify-center w-screen h-screen flex-col gap-2">

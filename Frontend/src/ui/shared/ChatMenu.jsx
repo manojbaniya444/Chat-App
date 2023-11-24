@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { GrNotification } from "react-icons/gr";
 import { Avatar, IconButton, MobileMenu } from "../../ui";
 import { AiOutlineMenu } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../app/index";
 
 const ChatMenu = () => {
   const [mobileView, setMobileView] = useState(false);
 
   const { authData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -24,7 +27,14 @@ const ChatMenu = () => {
         <IconButton>
           <GrNotification className="text-2xl" />
         </IconButton>
-        <div onClick={() => alert("Logout dispatch")}>
+        <div
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            dispatch(logout());
+            navigate("/login");
+          }}
+        >
           <Avatar src={authData.url} />
         </div>
       </div>
