@@ -14,6 +14,9 @@ const Friends = () => {
         />
       </div>
       <h3 className="mt-5 text-xl font-bold">All users on Kurakani</h3>
+      <p className="text-sm font-light">
+        Add them to your chat list by clicking.
+      </p>
       <Users />
     </div>
   );

@@ -13,6 +13,12 @@ const verifyAuthentication = async (req, res, next) => {
 
   const token = bearerToken.split(" ")[1];
 
+  if (!token) {
+    return res
+      .status(402)
+      .json({ success: false, message: "User not authenticated." });
+  }
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -25,7 +31,6 @@ const verifyAuthentication = async (req, res, next) => {
 
     // save the user details in the req after successful authentication
     req.user = decoded;
-    console.log(decoded);
     next();
   } catch (error) {
     console.log(error);

@@ -14,7 +14,6 @@ const Users = () => {
   }, []);
   // user data
 
-  console.log(users);
   return (
     <div className="bg-gray-100 mt-5 p-5 roundd-md flex gap-5 flex-col">
       {users?.map((item) => {

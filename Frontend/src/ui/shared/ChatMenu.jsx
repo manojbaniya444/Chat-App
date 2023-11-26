@@ -28,12 +28,12 @@ const ChatMenu = () => {
           <GrNotification className="text-2xl" />
         </IconButton>
         <div
-          // onClick={() => {
-          //   localStorage.removeItem("token");
-          //   localStorage.removeItem("user");
-          //   dispatch(logout());
-          //   navigate("/login");
-          // }}
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            dispatch(logout());
+            navigate("/login");
+          }}
         >
           <Avatar src={authData.url}/>
         </div>

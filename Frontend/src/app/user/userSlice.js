@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserThunk, fetchUsersThunk, loginUserThunk } from "./userAPI";
-import axios from "axios";
 
 const userToken = localStorage.getItem("token")
   ? localStorage.getItem("token")
@@ -9,7 +8,7 @@ const userData = localStorage.getItem("user")
   ? localStorage.getItem("user")
   : null;
 
-const initialState = {
+export const initialState = {
   loading: false,
   authData: JSON.parse(userData),
   error: null,
@@ -51,7 +50,6 @@ export const loginUser = createAsyncThunk(
 export const fetchUsers = createAsyncThunk("user/fetch", async () => {
   try {
     const response = await fetchUsersThunk(initialState.token);
-    console.log("Response data", response);
     if (response.status === 200) {
       return response.data.users;
     }

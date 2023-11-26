@@ -3,10 +3,26 @@ const Message = require("../models/message.model");
 
 //----->get all the chatlists
 const getAllChatsController = async (req, res) => {
-  const chats = await Chat.find({});
-  res
-    .status(200)
-    .json({ success: true, message: "All chats fetch success", chats });
+  const { id } = req.body;
+
+  if (!id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Participant Id missing" });
+  }
+  try {
+    const chats = await Chat.find({
+      participants: { $elemMatch: { $eq: id } },
+    });
+    res
+      .status(200)
+      .json({ success: true, message: "All chats fetch success", chats });
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Fail fetching the chat" });
+  }
+  // return res.status(200).json({ success: true, message: "Fetch success" });
 };
 
 //----->create a new chat between two users or in a room

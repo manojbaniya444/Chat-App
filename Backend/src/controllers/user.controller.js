@@ -107,8 +107,23 @@ const getAllUsersController = async (req, res) => {
     .json({ success: true, message: "Fetch all user success.", users });
 };
 
+//-----> Get single user controller
+const getSingleUserController = async (req, res) => {
+  const id = req.params.id;
+  if (!id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "User id required for fetch" });
+  }
+  const user = await User.findById(id).select({ password: 0 });
+  return res
+    .status(200)
+    .json({ success: true, message: "Get single user success", user });
+};
+
 module.exports = {
   createAccountController,
   loginController,
   getAllUsersController,
+  getSingleUserController,
 };
