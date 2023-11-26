@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserThunk, loginUserThunk } from "./userAPI";
+import { createUserThunk, fetchUsersThunk, loginUserThunk } from "./userAPI";
+import axios from "axios";
 
 const userToken = localStorage.getItem("token")
   ? localStorage.getItem("token")
@@ -15,6 +16,7 @@ const initialState = {
   token: userToken,
   loginSuccess: false,
   signupSuccess: false,
+  users: null,
 };
 
 // reducers function
@@ -34,7 +36,7 @@ export const createUser = createAsyncThunk(
 
 //--->Login Function
 export const loginUser = createAsyncThunk(
-  "user.login",
+  "user/login",
   async (userData, { rejectWithValue }) => {
     const response = await loginUserThunk(userData);
 
@@ -45,6 +47,18 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+//---> Get all user Function
+export const fetchUsers = createAsyncThunk("user/fetch", async () => {
+  try {
+    const response = await fetchUsersThunk(initialState.token);
+    console.log("Response data", response);
+    if (response.status === 200) {
+      return response.data.users;
+    }
+  } catch (error) {
+    console.log("Error fetching users");
+  }
+});
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -93,6 +107,17 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.loginSuccess = false;
+      })
+      .addCase(fetchUsers.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

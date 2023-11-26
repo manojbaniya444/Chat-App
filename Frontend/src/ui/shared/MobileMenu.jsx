@@ -12,6 +12,7 @@ const MobileMenu = ({ setMobileView }) => {
     {
       type: "Add friend",
       src: <FaUserAlt />,
+      link: "/search-friends",
     },
     {
       type: "Join Group",
@@ -35,7 +36,7 @@ const MobileMenu = ({ setMobileView }) => {
       </div>
       {list.map((item) => {
         return (
-          <Link to="/login">
+          <Link to={item.link}>
             <div
               key={item.type}
               className="flex gap-2 items-center hover:bg-gray-100 p-2 rounded-md select-none"

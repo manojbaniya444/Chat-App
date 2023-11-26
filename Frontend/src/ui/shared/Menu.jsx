@@ -12,6 +12,7 @@ const Menu = () => {
     {
       type: "Add friend",
       src: <FaUserAlt />,
+      link: "/search-friends",
     },
     {
       type: "Join Group",
@@ -31,7 +32,7 @@ const Menu = () => {
       {list.map((item, index) => {
         return (
           <div className="flex flex-col gap-1 items-center" key={index}>
-            <Link to="/">
+            <Link to={item.link}>
               <div key={index}>
                 <IconButton>{item.src}</IconButton>
               </div>

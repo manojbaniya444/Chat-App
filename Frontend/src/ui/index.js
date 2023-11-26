@@ -9,3 +9,5 @@ export { default as MessageList } from "./shared/MessageList";
 export { default as SendMessageComponent } from "./shared/SendMessageComponent";
 export { default as IconButton } from "./components/IconButton";
 export { default as MobileMenu } from "./shared/MobileMenu";
+export { default as Users } from "./shared/Users";
+export { default as SingleUser } from "./components/SingleUser";

@@ -16,7 +16,7 @@ const ChatMenu = () => {
   return (
     <>
       {mobileView && <MobileMenu setMobileView={setMobileView} />}
-      <div className="flex gap-2 p-3 bg-gray-300 items-center">
+      <div className="flex gap-2 p-2 bg-gray-300 items-center">
         {/* Menu Button Hidden on large devices and visible on small */}
         <div className="block md:hidden">
           <IconButton onClick={() => setMobileView(true)}>
@@ -28,14 +28,14 @@ const ChatMenu = () => {
           <GrNotification className="text-2xl" />
         </IconButton>
         <div
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            dispatch(logout());
-            navigate("/login");
-          }}
+          // onClick={() => {
+          //   localStorage.removeItem("token");
+          //   localStorage.removeItem("user");
+          //   dispatch(logout());
+          //   navigate("/login");
+          // }}
         >
-          <Avatar src={authData.url} />
+          <Avatar src={authData.url}/>
         </div>
       </div>
     </>
