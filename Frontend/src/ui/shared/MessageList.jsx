@@ -1,63 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "../../ui";
+import { useSelector } from "react-redux";
 
-const MessageList = () => {
-  let fakeData = [
-    {
-      id: 1,
-      message: "Hello",
-    },
-    {
-      id: 2,
-      message: "Hello",
-    },
-    {
-      id: 3,
-      message: "Hello",
-    },
-    {
-      id: 4,
-      message: "Hello",
-    },
-    {
-      id: 5,
-      message: "Hello",
-    },
-    {
-      id: 6,
-      message: "Hello",
-    },
-    {
-      id: 7,
-      message: "Hello",
-    },
-  ];
+const MessageList = ({ messages, friendName }) => {
+  const { authData } = useSelector((state) => state.user);
+
   return (
-    <div className="bg-gray-500 text-white flex flex-col gap-2 p-2 rounded-md flex-1">
-      <h1 className="text-center font-semibold text-xl md:text-2xl">
-        Manoj Baniya
-      </h1>
-      {fakeData.map((item, index) => {
+    <div className="bg-gray-500 text-white flex flex-1 flex-col gap-2 p-2 rounded-md w-[100%] overflow-y-scroll">
+      {messages?.map((item, index) => {
         return (
           // Here the user using is blue box and the sender is green so adjust the style according to the user
           <div
             key={index}
             className={
-              item.id % 2 === 0
-                ? " max-w-1/2 self-start flex items-center gap-2"
-                : "bg-blue-900 max-w-1/2 self-end p-2 rounded-md"
+              authData._id !== item?.sender //if true then display message as received message
+                ? "flex flex-col gap-2 max-w-[80%] self-start bg-gray-100 text-black p-2 rounded-md h-auto"
+                : " max-w-[70%] self-end bg-blue-900 p-2 rounded-md h-auto"
             }
           >
-            {item.id % 2 === 0 && <Avatar />}
-            <p
-              className={
-                item.id % 2 === 0
-                  ? "bg-green-900 p-2 rounded-md"
-                  : "bg-blue-900"
-              }
-            >
-              {item.message}
-            </p>
+            {authData._id !== item?.sender && (
+              <p className="font-semibold">{friendName}</p>
+            )}
+
+            <p className="font-light text-sm md:text-base">{item.message}</p>
           </div>
         );
       })}

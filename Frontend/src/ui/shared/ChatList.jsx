@@ -20,7 +20,7 @@ const ChatList = () => {
       {/* Here map all the previous chat list with the recent messages */}
       <h1 className="text-lg font-semibold">Recent Chats</h1>
       {chats?.map((item) => {
-        return <SingleChatHead key={item._id} data={item} />;
+        return <SingleChatHead key={item._id} chats={item} />;
       })}
     </div>
   );

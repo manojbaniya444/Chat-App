@@ -91,10 +91,28 @@ const sendMessageController = async (req, res) => {
   }
 };
 
+//-----> Fetch chat controller
+const fetchChatController = async (req, res) => {
+  const { chatId } = req.params;
+  if (!chatId) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Chat id reaquired" });
+  }
+
+  const messages = await Message.find({ chatId });
+  return res.status(200).json({
+    success: true,
+    message: "Messages of chat fetch success.",
+    messages,
+  });
+};
+
 module.exports = {
   getAllChatsController,
   addNewChatController,
   sendMessageController,
+  fetchChatController,
 };
 
 /*

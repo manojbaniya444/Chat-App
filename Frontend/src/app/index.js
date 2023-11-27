@@ -1,2 +1,2 @@
 export { createUser, loginUser, logout, fetchUsers } from "./user/userSlice";
-export { createChat, fetchChats } from "./chat/chatSlice";
+export { createChat, fetchChats, fetchMessages } from "./chat/chatSlice";

@@ -8,6 +8,9 @@ const initialState = {
   loading: false,
   error: null,
   chats: [],
+  messages: [],
+  messagesLoading: false,
+  currentChat: "",
 };
 
 export const createChat = createAsyncThunk(
@@ -53,9 +56,36 @@ export const fetchChats = createAsyncThunk(
   }
 );
 
+export const fetchMessages = createAsyncThunk(
+  "chat/fetchMessages",
+  async (chatId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/chat/${chatId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const messages = response.data.messages;
+        return messages;
+      }
+    } catch (error) {
+      console.log("Failed fetching the messages: ", error);
+    }
+  }
+);
+
 const chatSlice = createSlice({
   name: "chat",
   initialState,
+  reducers: {
+    currentChatWith: (state, action) => {
+      state.currentChat = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createChat.pending, (state) => {
@@ -70,8 +100,16 @@ const chatSlice = createSlice({
       .addCase(fetchChats.fulfilled, (state, action) => {
         state.loading = false;
         state.chats = action.payload;
+      })
+      .addCase(fetchMessages.pending, (state, action) => {
+        state.messagesLoading = true;
+      })
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        state.messagesLoading = false;
+        state.messages = action.payload;
       });
   },
 });
 
+export const { currentChatWith } = chatSlice.actions;
 export default chatSlice.reducer;
