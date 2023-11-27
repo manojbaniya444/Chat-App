@@ -7,12 +7,12 @@ const SingleChatHead = ({ data }) => {
   const [user, setUser] = useState();
   const { authData } = useSelector((state) => state.user);
 
-  const friendId = data.participants.filter((item) => item !== authData._id);
+  const friendId = data?.participants.filter((item) => item !== authData._id);
 
   useEffect(() => {
     (async () => {
       const response = await axios.get(
-        `http://localhost:8080/api/user/single-user/${friendId}`
+        `http://localhost:8080/api/user/single-user/${friendId[0]}`
       );
       setUser(response?.data.user);
     })();

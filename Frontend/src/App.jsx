@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CreateAccount, Home, Login, Friends } from "./pages";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   return (
