@@ -23,15 +23,17 @@ const SingleChatHead = ({ chats: data }) => {
   }, [data]);
 
   // fetching the messages of the selected chat to display in the chat component
-  const fetchChatHandler = async (chatData, receiverName) => {
-    dispatch(fetchMessages(chatData._id));
-    dispatch(currentChatWith(receiverName));
+  const fetchChatHandler = async (chatData, receiverUserDetails) => {
+    const chatId = chatData?._id;
+    dispatch(fetchMessages(chatData?._id));
+    dispatch(currentChatWith({ receiverUserDetails, chatId }));
   };
 
   return (
     <section
       className="bg-gray-600 flex gap-2 items-center p-1 rounded-md"
-      onClick={() => fetchChatHandler(data, user?.fullName)}
+      // fetching the chat with chatData id and then setting the currentchat receiver id and chat id
+      onClick={() => fetchChatHandler(data, user)}
     >
       <Avatar src={user?.url} />
       <div className="bg-gray-900 text-white rounded-md p-1 flex-1">
