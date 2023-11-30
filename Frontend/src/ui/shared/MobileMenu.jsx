@@ -28,7 +28,7 @@ const MobileMenu = ({ setMobileView }) => {
     },
   ];
   return (
-    <div className="absolute top-0 left-0 z-20 md:hidden bg-gray-300 p-5 flex flex-col gap-2 h-screen w-1/2 pt-32 shadow-lg">
+    <div className="absolute top-0 left-0 z-20 md:hidden bg-gray-200 p-5 flex flex-col gap-2 h-screen w-1/2 pt-32 shadow-lg">
       <div className="absolute top-5 right-5">
         <IconButton onClick={() => setMobileView(false)}>
           <GrClose />

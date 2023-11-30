@@ -28,7 +28,7 @@ const Menu = () => {
     },
   ];
   return (
-    <div className="flex gap-1 justify-between p-2 bg-orange-300">
+    <div className="flex gap-1 justify-evenly items-center h-[70px]">
       {list.map((item, index) => {
         return (
           <div className="flex flex-col gap-1 items-center" key={index}>

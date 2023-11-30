@@ -31,12 +31,12 @@ const SingleChatHead = ({ chats: data }) => {
 
   return (
     <section
-      className="bg-gray-600 flex gap-2 items-center p-1 rounded-md"
+      className="bg-gray-100 hover:bg-white flex gap-2 items-center p-1 rounded-md"
       // fetching the chat with chatData id and then setting the currentchat receiver id and chat id
       onClick={() => fetchChatHandler(data, user)}
     >
       <Avatar src={user?.url} />
-      <div className="bg-gray-900 text-white rounded-md p-1 flex-1">
+      <div className=" rounded-md p-1 flex-1">
         <h3 className="font-medium text-lg">{user?.fullName}</h3>
         <p className="font-thin text-sm">Start chatting</p>
       </div>

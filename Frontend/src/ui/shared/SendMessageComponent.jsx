@@ -24,7 +24,7 @@ const SendMessageComponent = ({ receiverId, senderId, chatId }) => {
   };
 
   return (
-    <div className="bg-gray-900 p-2 rounded-md flex gap-2 items-center">
+    <div className=" p-2 rounded-md flex gap-2 items-center">
       <input
         name=""
         id=""
