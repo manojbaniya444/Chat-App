@@ -12,3 +12,4 @@ export { default as MobileMenu } from "./shared/MobileMenu";
 export { default as Users } from "./shared/Users";
 export { default as SingleUser } from "./components/SingleUser";
 export { default as SingleChatHead } from "./shared/SingleChatHead";
+export { default as SingleChatHeadMobile } from "./shared/SingleChatHeadMobile";

@@ -1,15 +1,16 @@
 import React from "react";
-import { Avatar } from "../../ui";
+import { Avatar, SingleChatHeadMobile } from "../../ui";
+import { useSelector } from "react-redux";
 
 const FriendList = () => {
-  let fakeList = ["Manoj", "Saurav", "Ishudhi", "Arvind"];
+  const { chats } = useSelector((state) => state.chat);
+
   return (
-    <div className="flex gap-4 p-2">
-      {fakeList.map((item, index) => {
+    <div className="flex gap-2 p-5 overflow-x-auto">
+      {chats?.map((item) => {
         return (
-          <div className="flex flex-col gap-1" key={index}>
-            <Avatar />
-            <p className="text-xs font-light">{item}</p>
+          <div className="flex flex-col gap-1" key={item._id}>
+            <SingleChatHeadMobile chatData={item} />
           </div>
         );
       })}

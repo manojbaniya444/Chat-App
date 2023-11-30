@@ -4,4 +4,5 @@ export {
   fetchChats,
   fetchMessages,
   sendMessages,
+  currentChatWith,
 } from "./chat/chatSlice";
