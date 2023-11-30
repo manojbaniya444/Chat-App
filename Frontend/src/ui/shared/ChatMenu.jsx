@@ -31,7 +31,9 @@ const ChatMenu = () => {
         onClick={() => {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
-          dispatch(currentChatWith(""));
+          dispatch(
+            currentChatWith({ receiverUserDetails: null, chatId: null })
+          );
           dispatch(logout());
           navigate("/login");
         }}

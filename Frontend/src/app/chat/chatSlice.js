@@ -10,7 +10,8 @@ const initialState = {
   chats: [],
   messages: [],
   messagesLoading: false,
-  currentChat: "",
+  currentChat: null,
+  currentChatId: null,
 };
 
 export const createChat = createAsyncThunk(
@@ -78,12 +79,33 @@ export const fetchMessages = createAsyncThunk(
   }
 );
 
+export const sendMessages = createAsyncThunk(
+  "chat/sendMessage",
+  async (chatDetails) => {
+    try {
+      const { sender, receiver, chatId, message } = chatDetails;
+      const response = await axios.post(
+        `http://localhost:8080/api/chat/send-message/${chatId}`,
+        { sender, receiver, message },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log("Error sending message: ", error);
+    }
+  }
+);
+
 const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
     currentChatWith: (state, action) => {
-      state.currentChat = action.payload;
+      state.currentChat = action.payload.receiverUserDetails;
+      state.currentChatId = action.payload.chatId;
     },
   },
   extraReducers: (builder) => {
@@ -107,6 +129,13 @@ const chatSlice = createSlice({
       .addCase(fetchMessages.fulfilled, (state, action) => {
         state.messagesLoading = false;
         state.messages = action.payload;
+      })
+      .addCase(sendMessages.pending, (state, action) => {
+        // state.loading = true;
+      })
+      .addCase(sendMessages.fulfilled, (state, action) => {
+        // state.loading = false;
+        // state.messages = action.payload;
       });
   },
 });
