@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchChats } from "../../app/index";
 
 const ChatList = () => {
-  const { authData, activeUsers } = useSelector((state) => state.user);
+  const { authData } = useSelector((state) => state.user);
   const { chats } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 

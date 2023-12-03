@@ -14,6 +14,10 @@ const ChatComponent = () => {
     );
   }
 
+  // TODO::socket io code to handle real time chat
+
+  // TODO
+
   return (
     <div className="py-2 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
       {/* to make the scrollable message component */}
