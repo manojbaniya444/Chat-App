@@ -35,14 +35,27 @@ io.on("connection", (socket) => {
   //-->adding new user
   socket.on("newUser", (userId) => {
     // first check if the user is already present in the list or not if not then push the user in the list with the user id and socket ID
+    if (userId === null) return;
     !activeUsers.some((user) => user.userId === userId) &&
       activeUsers.push({
         userId,
         socketId: socket.id,
       });
+    // emitting the active Users to the client
     io.emit("getActiveUsers", activeUsers);
   });
-  // now emit the active users to the client
+
+  // on disconnecting event
+  socket.on("disconnect", () => {
+    // remove the user from the activeUsers list with the current socketId
+    const onlineUsersAfterDisconnect = activeUsers.filter(
+      (user) => user.socketId !== socket.id
+    );
+    activeUsers = onlineUsersAfterDisconnect;
+    // emitting the active users after userdisconnects
+    io.emit("getActiveUsers", onlineUsersAfterDisconnect);
+    console.log("User with socketid: " + socket.id + " Disconnects");
+  });
 });
 
 module.exports = server;

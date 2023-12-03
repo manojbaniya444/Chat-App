@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchChats } from "../../app/index";
 
 const ChatList = () => {
-  const { authData } = useSelector((state) => state.user);
+  const { authData, activeUsers } = useSelector((state) => state.user);
   const { chats } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const ChatList = () => {
       {/* Here map all the previous chat list with the recent messages */}
       <h1 className="text-lg font-semibold">Recent Chats</h1>
       {chats?.map((item) => {
-        return <SingleChatHead key={item._id} chats={item} />;
+        return <SingleChatHead key={item._id} chats={item}/>;
       })}
     </div>
   );

@@ -10,12 +10,13 @@ const userData = localStorage.getItem("user")
 
 export const initialState = {
   loading: false,
-  authData: JSON.parse(userData),
+  authData: JSON.parse(userData), // contains user data
   error: null,
   token: userToken,
   loginSuccess: false,
   signupSuccess: false,
-  users: null,
+  users: null, // all the users
+  activeUsers: [], // those users who are currently active
 };
 
 // reducers function
@@ -71,7 +72,10 @@ const userSlice = createSlice({
       state.authData = null;
       state.loginSuccess = false;
       state.signupSuccess = false;
-    }
+    },
+    setActiveUsers: (state, action) => {
+      state.activeUsers = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -128,4 +132,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { logout } = userSlice.actions;
+export const { logout, setActiveUsers } = userSlice.actions;

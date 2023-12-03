@@ -4,16 +4,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 // socket connection code might migrate later.
+import { setActiveUsers } from "./app/index";
 import io from "socket.io-client";
+import { current } from "@reduxjs/toolkit";
 const ENDPOINT = "http://localhost:8080";
 //
 
 const App = () => {
   // socket connection
   const [socket, setSocket] = useState(null);
-  const [activeUsers, setActiveUsers] = useState();
 
-  const { authData } = useSelector((state) => state.user);
+  const { authData, activeUsers } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const newSocket = io(ENDPOINT);
@@ -24,15 +26,14 @@ const App = () => {
       newSocket.disconnect();
     };
     // change the socket when the authData changes
-  },[authData]);
+  }, [authData]);
 
   // for connected user to show who is online or not
   useEffect(() => {
     if (socket === null) return;
-    socket.emit("newUser", authData._id);
+    socket.emit("newUser", authData?._id);
     socket.on("getActiveUsers", (activeUsers) => {
-      console.log("active Users", activeUsers);
-      setActiveUsers(activeUsers);
+      dispatch(setActiveUsers(activeUsers));
     });
 
     // cleanup function
