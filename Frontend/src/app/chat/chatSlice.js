@@ -7,11 +7,11 @@ const userToken =
 const initialState = {
   loading: false,
   error: null,
-  chats: [],
-  messages: [],
+  chats: [], // all the chats of the logged in users
+  messages: [], // all the messages of the current chat
   messagesLoading: false,
-  currentChat: null,
-  currentChatId: null,
+  currentChat: null, // current chatting friend details
+  currentChatId: null, // holds the current chat id
 };
 
 export const createChat = createAsyncThunk(

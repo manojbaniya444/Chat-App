@@ -15,15 +15,15 @@ const ChatMenu = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex gap-2 p-2 bg-gray-200 items-center h-[70px] ">
+    <div className="flex gap-2 p-2 bg-zinc-900 text-white items-center h-[70px] ">
       {mobileView && <MobileMenu setMobileView={setMobileView} />}
       {/* Menu Button Hidden on large devices and visible on small */}
       <div className="block md:hidden">
         <IconButton onClick={() => setMobileView(true)}>
-          <AiOutlineMenu className="text-2xl" />
+          <AiOutlineMenu className="text-2xl text-black" />
         </IconButton>
       </div>
-      <input type="search" placeholder="search here" />
+      <input type="search" className="bg-gray-300" placeholder="search here" />
       <IconButton>
         <GrNotification className="text-2xl" />
       </IconButton>

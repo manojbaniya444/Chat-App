@@ -1,4 +1,10 @@
-export { createUser, loginUser, logout, fetchUsers } from "./user/userSlice";
+export {
+  createUser,
+  loginUser,
+  logout,
+  setActiveUsers,
+  fetchUsers,
+} from "./user/userSlice";
 export {
   createChat,
   fetchChats,

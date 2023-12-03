@@ -6,11 +6,20 @@ import { fetchMessages } from "../../app/index";
 import { currentChatWith } from "../../app/chat/chatSlice";
 
 const SingleChatHead = ({ chats: data }) => {
-  const [user, setUser] = useState();
-  const { authData, token } = useSelector((state) => state.user);
+  const [user, setUser] = useState(null);
+  const [online, setOnline] = useState(false);
+  const { authData, token, activeUsers } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const friendId = data?.participants.filter((item) => item !== authData._id);
+
+  // check if the friendId is currently active or not
+  useEffect(() => {
+    const isUserOnline = activeUsers.some(
+      (user) => user.userId === friendId[0]
+    );
+    setOnline(isUserOnline);
+  }, [activeUsers]);
 
   // fetching the users data for the display in the chat list
   useEffect(() => {
@@ -31,14 +40,18 @@ const SingleChatHead = ({ chats: data }) => {
 
   return (
     <section
-      className="bg-gray-100 hover:bg-white flex gap-2 items-center p-1 rounded-md"
+      className={`bg-zinc-900 hover:bg-black flex gap-2 items-center p-1 rounded-md`}
       // fetching the chat with chatData id and then setting the currentchat receiver id and chat id
       onClick={() => fetchChatHandler(data, user)}
     >
       <Avatar src={user?.url} />
       <div className=" rounded-md p-1 flex-1">
         <h3 className="font-medium text-lg">{user?.fullName}</h3>
-        <p className="font-thin text-sm">Start chatting</p>
+        {online ? (
+          <p className="font-thin text-sm text-green-500">Active now</p>
+        ) : (
+          <p className="font-thin text-sm">currently offline</p>
+        )}
       </div>
     </section>
   );
