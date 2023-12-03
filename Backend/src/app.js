@@ -45,6 +45,16 @@ io.on("connection", (socket) => {
     io.emit("getActiveUsers", activeUsers);
   });
 
+  //--> New message event
+  socket.on("newMessage", (messageDetails) => {
+    const receiverUser = activeUsers.find(
+      (user) => user.userId === messageDetails.receiver
+    );
+    if (!receiverUser) return;
+    // if there us user online then emit the message to the receiver user
+    io.to(receiverUser.socketId).emit("getMessage", messageDetails);
+  });
+
   // on disconnecting event
   socket.on("disconnect", () => {
     // remove the user from the activeUsers list with the current socketId

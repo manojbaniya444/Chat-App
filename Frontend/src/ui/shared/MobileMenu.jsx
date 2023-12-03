@@ -34,9 +34,9 @@ const MobileMenu = ({ setMobileView }) => {
           <GrClose />
         </IconButton>
       </div>
-      {list.map((item) => {
+      {list.map((item, index) => {
         return (
-          <Link to={item.link}>
+          <Link to={item.link} key={index}>
             <div
               key={item.type}
               className="flex gap-2 items-center hover:bg-zinc-950 p-2 rounded-md select-none"
