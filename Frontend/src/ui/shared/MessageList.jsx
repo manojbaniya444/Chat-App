@@ -18,8 +18,8 @@ const MessageList = ({ messages, friendName }) => {
           key={index}
           className={
             authData._id !== item?.sender
-              ? "self-start max-w-[70%] bg-gray-200 rounded p-2"
-              : "self-end max-w-[70%] bg-purple-900 text-white rounded p-2"
+              ? "self-start max-w-[70%] bg-gray-200 text-black rounded p-2"
+              : "self-end max-w-[70%] bg-violet-900 text-white rounded p-2"
           }
         >
           {authData._id !== item?.sender && (

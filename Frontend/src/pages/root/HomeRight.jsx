@@ -3,7 +3,7 @@ import { ChatComponent, ChatMenu, FriendList } from "../../ui";
 
 const HomeRight = () => {
   return (
-    <div className="h-screen bg-gray-100 flex flex-1 md:flex-[0.7] flex-col w-[1px]">
+    <div className="h-screen bg-zinc-950 flex flex-1 md:flex-[0.7] flex-col w-[1px]">
       {/* w-1px for scrollable */}
       <ChatMenu />
       {/* Chat list to be shown when in large device */}

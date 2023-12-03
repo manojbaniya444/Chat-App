@@ -24,17 +24,18 @@ const SendMessageComponent = ({ receiverId, senderId, chatId }) => {
   };
 
   return (
-    <div className=" p-2 rounded-md flex gap-2 items-center">
+    <div className=" p-2 rounded-md flex gap-2 items-center text-black">
       <input
         name=""
         id=""
         cols="3"
-        className="flex-1 outline-none font-thina rounded-sm p-1"
+        className="flex-1 outline-none font-thina rounded-sm p-1 bg-gray-300"
         value={message}
+        placeholder="type message..."
         onChange={(e) => setMessage(e.target.value)}
       ></input>
       <IconButton onClick={messageSendHandler}>
-        <AiOutlineSend />
+        <AiOutlineSend className="text-black" />
       </IconButton>
     </div>
   );

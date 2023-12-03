@@ -31,7 +31,7 @@ const SingleChatHead = ({ chats: data }) => {
 
   return (
     <section
-      className="bg-gray-100 hover:bg-white flex gap-2 items-center p-1 rounded-md"
+      className="bg-zinc-900 hover:bg-black flex gap-2 items-center p-1 rounded-md"
       // fetching the chat with chatData id and then setting the currentchat receiver id and chat id
       onClick={() => fetchChatHandler(data, user)}
     >

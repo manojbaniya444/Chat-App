@@ -15,7 +15,7 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className="py-2 px-2   flex flex-1 flex-col gap-1 h-[1px]">
+    <div className="py-2 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
       {/* to make the scrollable message component */}
       <h1 className="text-center font-bold text-xl md:text-2xl">
         {currentChat.fullName}
