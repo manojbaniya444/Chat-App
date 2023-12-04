@@ -7,7 +7,7 @@ const Avatar = ({ src = image, size = "sm" }) => {
       src={src}
       alt=""
       className={`${
-        size === "sm" ? "w-9 h-9" : "w-14 h-14"
+        size === "sm" ? "w-9 h-9" : "w-12 h-12"
       }  rounded-full object-cover`}
     />
   );

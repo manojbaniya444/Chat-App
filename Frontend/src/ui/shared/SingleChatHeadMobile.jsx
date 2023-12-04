@@ -46,11 +46,11 @@ const SingleChatHeadMobile = ({ chatData }) => {
       onClick={() => fetchChatHandler(chatData, user)}
     >
       <Avatar size="lg" src={user?.url} />
-      <p className="mt-2 font-semibold text-sm text-gray-200">
+      <p className="mt-1 font-medium text-xs md:text-sm text-gray-200">
         {user?.fullName.split(" ")[0]}
       </p>
       {online && (
-        <div className="w-5 h-5 bg-green-500 rounded-full absolute bottom-5 right-2"></div>
+        <div className="w-4 h-4 bg-green-500 rounded-full absolute bottom-4 right-2"></div>
       )}
     </section>
   );

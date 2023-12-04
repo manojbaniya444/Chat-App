@@ -3,7 +3,7 @@ import { Avatar } from "../../ui";
 import { useSelector } from "react-redux";
 import { useSocket } from "../../socketContext/Context";
 
-const MessageList = ({ messages, setMessages, friendName }) => {
+const MessageList = ({ messages, setMessages, friendName, url }) => {
   const { authData } = useSelector((state) => state.user);
   const { currentChatId } = useSelector((state) => state.chat);
   const { socket } = useSocket();
@@ -52,15 +52,24 @@ const MessageList = ({ messages, setMessages, friendName }) => {
           key={index}
           className={
             authData._id !== item?.sender
-              ? "self-start max-w-[70%] bg-gray-200 text-black rounded p-2"
-              : "self-end max-w-[70%] bg-violet-900 text-white rounded p-2"
+              ? "self-start max-w-[70%] flex gap-2 items-center "
+              : "self-end max-w-[70%]"
           }
         >
           {authData._id !== item?.sender && (
-            <p className="font-semibold">{friendName}</p>
+            // <p className="font-semibold">{friendName}</p>
+            <Avatar src={url} />
           )}
 
-          <p className="break-all font-thin">{item.message}</p>
+          <p
+            className={`break-all font-normal text-xs md:text-base font- ${
+              authData._id !== item?.sender
+                ? "bg-gray-200  text-black rounded p-2"
+                : " bg-violet-900 text-white rounded p-2"
+            }`}
+          >
+            {item.message}
+          </p>
         </div>
       ))}
     </div>

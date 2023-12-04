@@ -14,8 +14,17 @@ const ChatMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // logout handler
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(currentChatWith({ receiverUserDetails: null, chatId: null }));
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
-    <div className="flex gap-2 p-2 bg-zinc-900 text-white items-center h-[70px] ">
+    <div className="flex gap-1 p-2 bg-zinc-950 md:bg-zinc-900 text-white items-center md:h-[70px] ">
       {mobileView && <MobileMenu setMobileView={setMobileView} />}
       {/* Menu Button Hidden on large devices and visible on small */}
       <div className="block md:hidden">
@@ -23,23 +32,20 @@ const ChatMenu = () => {
           <AiOutlineMenu className="text-2xl text-black" />
         </IconButton>
       </div>
-      <input type="search" className="bg-gray-300" placeholder="search here" />
+      <input
+        type="search"
+        className="bg-gray-300 text-black h-[30px] md:h-[40px]"
+        placeholder="search here"
+      />
       <IconButton>
         <GrNotification className="text-2xl" />
       </IconButton>
-      <div
-        onClick={() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          dispatch(
-            currentChatWith({ receiverUserDetails: null, chatId: null })
-          );
-          dispatch(logout());
-          navigate("/login");
-        }}
-      >
-        <Avatar src={authData.url} />
-      </div>
+      <img
+        onClick={logoutHandler}
+        src={authData.url}
+        alt="profileimg"
+        className="h-7 w-7 rounded-full object-cover"
+      />
     </div>
   );
 };

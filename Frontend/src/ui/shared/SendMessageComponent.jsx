@@ -30,22 +30,18 @@ const SendMessageComponent = ({
     setMessage("");
     // after message sent emit the socket to send new message
     if (socket === null) return;
+    if (message === "") return;
     socket.emit("newMessage", chatDetails);
     setAllMessages((prevMessages) => [...prevMessages, chatDetails]);
   };
 
-  // socket to emit new message
-  // useEffect(() => {
-
-  // }, [messageResponse]);
-
   return (
-    <div className=" p-2 rounded-md flex gap-2 items-center text-black">
+    <div className="text-xs md:text-base p-2 rounded-md flex gap-2 items-center text-black">
       <input
         name=""
         id=""
         cols="3"
-        className="flex-1 outline-none font-thina rounded-sm p-1 bg-gray-300"
+        className="flex-1 outline-none text-sm md:text-basea  rounded-sm p-1 bg-gray-300 h-7 md:h-9"
         value={message}
         placeholder="type message..."
         onChange={(e) => setMessage(e.target.value)}
