@@ -53,6 +53,15 @@ io.on("connection", (socket) => {
     if (!receiverUser) return;
     // if there us user online then emit the message to the receiver user
     io.to(receiverUser.socketId).emit("getMessage", messageDetails);
+    // also emitting the notification to the user when other user with different chatId sends message
+    io.to(receiverUser.socketId).emit("notification", {
+      senderId: messageDetails.sender,
+      receiverId: messageDetails.receiver,
+      message: messageDetails.message,
+      chatId: messageDetails.chatId,
+      isRead: false,
+      date: new Date(),
+    });
   });
 
   // on disconnecting event

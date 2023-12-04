@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GrNotification } from "react-icons/gr";
 import { Avatar, IconButton, MobileMenu } from "../../ui";
@@ -6,13 +6,22 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../app/index";
 import { currentChatWith } from "../../app/chat/chatSlice";
+import { useSocket } from "../../socketContext/Context";
+import { getUnreadNotifications } from "../../utils/getUnreadNotifications";
 
 const ChatMenu = () => {
   const [mobileView, setMobileView] = useState(false);
+  const [newNotifications, setNewNotifications] = useState([]);
 
+  const { notifications } = useSocket();
   const { authData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // get Unread notifications
+  useEffect(() => {
+    setNewNotifications(getUnreadNotifications(notifications));
+  }, [notifications]);
 
   // logout handler
   const logoutHandler = () => {
@@ -32,14 +41,24 @@ const ChatMenu = () => {
           <AiOutlineMenu className="text-2xl text-black" />
         </IconButton>
       </div>
+      {/* to search chatlist */}
       <input
         type="search"
         className="bg-gray-300 text-black h-[30px] md:h-[40px]"
         placeholder="search here"
       />
-      <IconButton>
-        <GrNotification className="text-2xl" />
-      </IconButton>
+      {/* notifications */}
+      <div className="relative">
+        <IconButton>
+          <GrNotification className="text-2xl" />
+        </IconButton>
+        {newNotifications.length > 0 && (
+          <p className="absolute -top-2 bg-red-500 h-5 w-5 rounded-full flex items-center justify-center text-xs md:text-sm">
+            {newNotifications.length <= 9 ? newNotifications.length : "9+"}
+          </p>
+        )}
+      </div>
+      {/* logout */}
       <img
         onClick={logoutHandler}
         src={authData.url}
