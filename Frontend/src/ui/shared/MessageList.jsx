@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Avatar } from "../../ui";
+import { Avatar, TypingAnimation } from "../../ui";
 import { useSelector } from "react-redux";
 import { useSocket } from "../../socketContext/Context";
 import TimeAgo from "../components/TimeAgo";
 
 const MessageList = ({ messages, setMessages, friendName, url }) => {
+  const [friendIsTypingMessages, setFriendIsTypingMessages] = useState(false);
+
   const { authData } = useSelector((state) => state.user);
   const { currentChatId } = useSelector((state) => state.chat);
   const { socket } = useSocket();
@@ -34,6 +36,26 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
       socket.off("getMessage");
     };
   }, [socket, currentChatId]);
+
+  // check if the friend is currently typing messages or not
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("getIsTyping", (typingDetails) => {
+      if (currentChatId !== typingDetails.chatId) return;
+      setFriendIsTypingMessages(true);
+    });
+
+    return () => socket.off("getIsTyping");
+  }, [socket, currentChatId]);
+
+  // set the isTyping to false after 1 sec
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setFriendIsTypingMessages(false);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [friendIsTypingMessages]);
 
   if (messages?.length === 0) {
     return (
@@ -75,6 +97,8 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
           </div>
         </div>
       ))}
+      {/* typing animation */}
+      {friendIsTypingMessages && <TypingAnimation />}
     </div>
   );
 };

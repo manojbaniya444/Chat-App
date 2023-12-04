@@ -85,7 +85,7 @@ const ChatMenu = () => {
         onClick={logoutHandler}
         src={authData.url}
         alt="profileimg"
-        className="h-7 w-7 rounded-full object-cover"
+        className="h-7 w-7 md:h-9 md:w-9 rounded-full object-cover"
       />
     </div>
   );

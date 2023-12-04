@@ -15,3 +15,4 @@ export { default as SingleChatHead } from "./shared/SingleChatHead";
 export { default as SingleChatHeadMobile } from "./shared/SingleChatHeadMobile";
 export { default as NotificationModal } from "./components/NotificationModal";
 export { default as Notification } from "./components/Notification";
+export { default as TypingAnimation } from "./components/TypingAnimation"

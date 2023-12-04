@@ -12,6 +12,7 @@ const SendMessageComponent = ({
   setAllMessages,
 }) => {
   const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const dispatch = useDispatch();
   const { socket } = useSocket();
 
@@ -22,10 +23,37 @@ const SendMessageComponent = ({
     chatId,
   };
 
-  const messageSendHandler = async () => {
+  // handle message typing
+  const messageTypingChangeHandler = (e) => {
+    setMessage(e.target.value);
+    setIsTyping(true);
+  };
+
+  useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      setIsTyping(false);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [message]);
+
+  // for emitting the typing event
+  useEffect(() => {
+    if (!isTyping) return;
+    if (socket === null) return;
+    socket.emit("sendTyping", {
+      senderId,
+      receiverId,
+      chatId,
+    });
+  }, [isTyping]);
+
+  // message send handler
+  const messageSendHandler = async (e) => {
     // dispatch here for the message sending handler
     // to send the message we need 1-> sender id --> authData._id maa hunxa 2-> receiver id --> jun hunxa currentChat ko _id maa 3-> Message to send jun hamro local state maa ra chatId jun huncha
-
+    e.preventDefault();
+    setIsTyping(false);
     const response = await dispatch(sendMessages(chatDetails));
     setMessage("");
     // after message sent emit the socket to send new message
@@ -42,7 +70,10 @@ const SendMessageComponent = ({
   };
 
   return (
-    <div className="text-xs md:text-base p-2 rounded-md flex gap-2 items-center text-black">
+    <form
+      onSubmit={messageSendHandler}
+      className="text-xs md:text-base p-2 rounded-md flex gap-2 items-center text-black"
+    >
       <input
         name=""
         id=""
@@ -50,12 +81,12 @@ const SendMessageComponent = ({
         className="flex-1 outline-none text-sm md:text-basea  rounded-sm p-1 bg-gray-300 h-7 md:h-9"
         value={message}
         placeholder="type message..."
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={messageTypingChangeHandler}
       ></input>
-      <IconButton onClick={messageSendHandler}>
+      <IconButton type={"submit"}>
         <AiOutlineSend className="text-black" />
       </IconButton>
-    </div>
+    </form>
   );
 };
 

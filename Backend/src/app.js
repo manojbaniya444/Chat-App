@@ -70,6 +70,18 @@ io.on("connection", (socket) => {
     }
   });
 
+  //-->typing event
+  socket.on("sendTyping", (typingDetails) => {
+    console.log("on typing socket")
+    const receiverUser = activeUsers?.find(
+      (user) => user.userId === typingDetails.receiverId
+    );
+    if (!receiverUser) return;
+    console.log("Typing");
+
+    io.to(receiverUser.socketId).emit("getIsTyping", typingDetails);
+  });
+
   // on disconnecting event
   socket.on("disconnect", () => {
     // remove the user from the activeUsers list with the current socketId
