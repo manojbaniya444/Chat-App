@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Avatar } from "../../ui";
 import { useSelector } from "react-redux";
 import { useSocket } from "../../socketContext/Context";
+import TimeAgo from "../components/TimeAgo";
 
 const MessageList = ({ messages, setMessages, friendName, url }) => {
   const { authData } = useSelector((state) => state.user);
@@ -60,16 +61,18 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
             // <p className="font-semibold">{friendName}</p>
             <Avatar src={url} />
           )}
-
-          <p
-            className={`break-all font-normal text-xs md:text-base font- ${
+          <div
+            className={`break-all font-normal text-sm md:text-base rounded-sm p-1 ${
               authData._id !== item?.sender
-                ? "bg-gray-200  text-black rounded p-2"
-                : " bg-violet-900 text-white rounded p-2"
+                ? "bg-gray-200  text-black"
+                : " bg-violet-900 text-white"
             }`}
           >
-            {item.message}
-          </p>
+            <p>{item.message}</p>
+            <p className="text-[10px]  font-thin text-gray-black">
+              <TimeAgo createdAt={item.createdAt} />
+            </p>
+          </div>
         </div>
       ))}
     </div>

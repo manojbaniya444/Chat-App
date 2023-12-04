@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Avatar from "./Avatar";
 import { getUserByUserId } from "../../utils/getUserByUserId";
+import TimeAgo from "./TimeAgo";
 
 const Notification = ({ notification }) => {
   const [user, setUser] = useState(null);
@@ -29,7 +30,9 @@ const Notification = ({ notification }) => {
           {message.substring(0, 20)}
           {message.length > 20 && "..."}
         </p>
-        <p className="text-xs md:text-sm text-gray-500">1 minute ago</p>
+        <p className="text-xs md:text-sm text-gray-500">
+          <TimeAgo createdAt={date} />
+        </p>
       </div>
     </div>
   );

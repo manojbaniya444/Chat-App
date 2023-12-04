@@ -31,8 +31,14 @@ const SendMessageComponent = ({
     // after message sent emit the socket to send new message
     if (socket === null) return;
     if (message === "") return;
-    socket.emit("newMessage", chatDetails);
-    setAllMessages((prevMessages) => [...prevMessages, chatDetails]);
+    socket.emit("newMessage", {
+      ...chatDetails,
+      createdAt: new Date().toISOString(),
+    });
+    setAllMessages((prevMessages) => [
+      ...prevMessages,
+      { ...chatDetails, createdAt: new Date().toISOString() },
+    ]);
   };
 
   return (

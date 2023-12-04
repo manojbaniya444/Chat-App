@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Notification } from "../../ui/index";
 
-const NotificationModal = ({ notifications, setNotifications }) => {
+const NotificationModal = ({
+  notifications,
+  setNotifications,
+  setShowNotificationModal,
+}) => {
   // clearing the notification
   const clearNotificationHandler = () => {
     setNotifications([]);
+    setShowNotificationModal(false);
   };
 
   if (notifications.length === 0) {

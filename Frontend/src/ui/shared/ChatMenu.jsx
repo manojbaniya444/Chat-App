@@ -52,6 +52,7 @@ const ChatMenu = () => {
         <NotificationModal
           notifications={newNotifications}
           setNotifications={setNotifications}
+          setShowNotificationModal={setShowNotificationModal}
         />
       )}
       {/* Displaying menu modal on small screen */}
