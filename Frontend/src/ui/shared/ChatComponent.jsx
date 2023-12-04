@@ -16,21 +16,26 @@ const ChatComponent = () => {
 
   if (!currentChat) {
     return (
-      <p className="text-center text-white mt-5 font-bold text-xl">
+      <p className="text-center text-white text-sm md:text-base mt-5 font-bold">
         Select one chat
       </p>
     );
   }
 
   return (
-    <div className="py-2 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
+    <div className="text-xs md:text-base py-2 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
       {/* to make the scrollable message component */}
-      <h1 className="text-center font-bold text-xl md:text-2xl">
+      {/* <h1 className="text-center font-bold text-xl md:text-2xl">
         {currentChat.fullName}
-      </h1>
-      <MessageList messages={allMessages} setMessages={setAllMessages} friendName={currentChat.fullName} />
+      </h1> */}
+      <MessageList
+        messages={allMessages}
+        setMessages={setAllMessages}
+        friendName={currentChat.fullName}
+        url={currentChat.url}
+      />
       <SendMessageComponent
-      setAllMessages={setAllMessages}
+        setAllMessages={setAllMessages}
         receiverId={currentChat._id}
         senderId={authData._id}
         chatId={currentChatId}

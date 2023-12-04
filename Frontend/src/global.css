@@ -16,13 +16,16 @@ input {
   width: 7px;
 }
 
+.scrollbar-style2::-webkit-scrollbar {
+  display: none;
+}
 .scrollbar-style::-webkit-scrollbar-thumb {
-  background-color: #071621; /* Set the color of the scrollbar thumb */
+  background-color: #626364; /* Set the color of the scrollbar thumb */
   border-radius: 8px; /* Set the border radius of the thumb */
 }
 
 .scrollbar-style::-webkit-scrollbar-track {
-  background-color: #cfc8c8; /* Set the color of the scrollbar track */
+  background-color: #f3f0f0; /* Set the color of the scrollbar track */
 }
 
 /* Apply the custom style to the scrollable div */

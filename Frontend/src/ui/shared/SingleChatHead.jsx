@@ -8,7 +8,9 @@ import { currentChatWith } from "../../app/chat/chatSlice";
 const SingleChatHead = ({ chats: data }) => {
   const [user, setUser] = useState(null);
   const [online, setOnline] = useState(false);
-  const { authData, token, activeUsers } = useSelector((state) => state.user);
+  const { authData, token, activeUsers, users } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
 
   const friendId = data?.participants.filter((item) => item !== authData._id);
