@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GrNotification } from "react-icons/gr";
-import { Avatar, IconButton, MobileMenu } from "../../ui";
+import { Avatar, IconButton, MobileMenu, NotificationModal } from "../../ui";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../app/index";
@@ -12,8 +12,9 @@ import { getUnreadNotifications } from "../../utils/getUnreadNotifications";
 const ChatMenu = () => {
   const [mobileView, setMobileView] = useState(false);
   const [newNotifications, setNewNotifications] = useState([]);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
 
-  const { notifications } = useSocket();
+  const { notifications, setNotifications } = useSocket();
   const { authData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,8 +33,28 @@ const ChatMenu = () => {
     navigate("/login");
   };
 
+  // display Notification Handler
+  const displayNotificationHandler = () => {
+    setShowNotificationModal(!showNotificationModal);
+    // later on only change the selected notification to read: true
+    const readNotifications = newNotifications.map((notification) => ({
+      ...notification,
+      isRead: true,
+    }));
+    // update the notifications in the context
+    // setNotifications(getUnreadNotifications(readNotifications));
+  };
+
   return (
-    <div className="flex gap-1 p-2 bg-zinc-950 md:bg-zinc-900 text-white items-center md:h-[70px] ">
+    <div className="flex gap-1 p-2 bg-zinc-950 md:bg-zinc-900 text-white items-center md:h-[70px] relative">
+      {/* Notification modal if notificationModal is open */}
+      {showNotificationModal && (
+        <NotificationModal
+          notifications={newNotifications}
+          setNotifications={setNotifications}
+        />
+      )}
+      {/* Displaying menu modal on small screen */}
       {mobileView && <MobileMenu setMobileView={setMobileView} />}
       {/* Menu Button Hidden on large devices and visible on small */}
       <div className="block md:hidden">
@@ -49,7 +70,7 @@ const ChatMenu = () => {
       />
       {/* notifications */}
       <div className="relative">
-        <IconButton>
+        <IconButton onClick={displayNotificationHandler}>
           <GrNotification className="text-2xl" />
         </IconButton>
         {newNotifications.length > 0 && (

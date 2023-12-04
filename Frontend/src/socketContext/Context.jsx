@@ -48,7 +48,7 @@ export const SocketProvider = ({ children }) => {
   }, [socket, currentChatId]);
 
   return (
-    <SocketContext.Provider value={{ socket, notifications }}>
+    <SocketContext.Provider value={{ socket, notifications, setNotifications }}>
       {children}
     </SocketContext.Provider>
   );

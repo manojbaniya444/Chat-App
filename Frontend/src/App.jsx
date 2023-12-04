@@ -5,7 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 // socket connection code might migrate later.
 import { useSocket } from "./socketContext/Context";
-import { setActiveUsers } from "./app/index";
+import { fetchUsers, setActiveUsers } from "./app/index";
 
 const App = () => {
   const { authData } = useSelector((state) => state.user);
@@ -23,6 +23,11 @@ const App = () => {
       socket.off("getActiveUsers");
     };
   }, [socket]);
+
+  // fetch all users
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
 
   //
   return (

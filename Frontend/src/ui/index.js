@@ -13,3 +13,5 @@ export { default as Users } from "./shared/Users";
 export { default as SingleUser } from "./components/SingleUser";
 export { default as SingleChatHead } from "./shared/SingleChatHead";
 export { default as SingleChatHeadMobile } from "./shared/SingleChatHeadMobile";
+export { default as NotificationModal } from "./components/NotificationModal";
+export { default as Notification } from "./components/Notification";
