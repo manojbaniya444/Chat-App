@@ -41,11 +41,13 @@ const SingleChatHeadMobile = ({ chatData }) => {
 
   return (
     <section
-      className={`flex items-center flex-col cursor-pointer transition duration-300 transform hover:scale-105 max-w-[80px]`}
+      className={`flex items-center flex-col cursor-pointer transition duration-300 transform hover:scale-105 min-w-[60px]`}
       // fetching the chat with chatData id and then setting the current chat receiver id and chat id
       onClick={() => fetchChatHandler(chatData, user)}
     >
-      <Avatar size="lg" src={user?.url} />
+      <div>
+        <Avatar size="lg" src={user?.url} />
+      </div>
       <p className="mt-1 font-medium text-xs md:text-sm text-gray-200">
         {user?.fullName.split(" ")[0]}
       </p>

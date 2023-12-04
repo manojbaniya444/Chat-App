@@ -16,6 +16,9 @@ input {
   width: 7px;
 }
 
+.scrollbar-style2::-webkit-scrollbar {
+  display: none;
+}
 .scrollbar-style::-webkit-scrollbar-thumb {
   background-color: #626364; /* Set the color of the scrollbar thumb */
   border-radius: 8px; /* Set the border radius of the thumb */
