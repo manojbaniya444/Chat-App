@@ -10,9 +10,9 @@ const ENDPOINT = import.meta.env.ENDPOINT || "http://localhost:8080";
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
+  const [friendIsTypingMessages, setFriendIsTypingMessages] = useState(false);
 
   const { authData } = useSelector((state) => state.user);
-  const latestNotificationRef = useRef(null);
   const { messages, currentChatId } = useSelector((state) => state.chat);
 
   // new socket initialization
@@ -47,8 +47,34 @@ export const SocketProvider = ({ children }) => {
     };
   }, [socket, currentChatId]);
 
+  // check if the friend is currently typing messages or not
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("get typing", (typingDetails) => {
+      if (currentChatId !== typingDetails.chatId) return;
+      setFriendIsTypingMessages(true);
+    });
+
+    socket.on("get stop typing", (typingDetails) => {
+      if (currentChatId !== typingDetails.chatId) return;
+      setFriendIsTypingMessages(false);
+    });
+
+    return () => {
+      socket.off("get typing");
+      socket.off("get stop typing");
+    };
+  }, [socket, currentChatId]);
+
   return (
-    <SocketContext.Provider value={{ socket, notifications, setNotifications }}>
+    <SocketContext.Provider
+      value={{
+        socket,
+        notifications,
+        setNotifications,
+        friendIsTypingMessages,
+      }}
+    >
       {children}
     </SocketContext.Provider>
   );

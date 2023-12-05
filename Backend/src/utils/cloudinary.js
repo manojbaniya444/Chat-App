@@ -7,12 +7,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// cloudinary.config({
-//   cloud_name: "dujmaxztw",
-//   api_key: "513158386266725",
-//   api_secret: "vK3nReg8EHaoxi6RL-dutza0Axw",
-// });
-
 const cloudinaryUploader = async (localPath) => {
   try {
     if (!localPath) {

@@ -5,11 +5,9 @@ import { useSocket } from "../../socketContext/Context";
 import TimeAgo from "../components/TimeAgo";
 
 const MessageList = ({ messages, setMessages, friendName, url }) => {
-  const [friendIsTypingMessages, setFriendIsTypingMessages] = useState(false);
-
   const { authData } = useSelector((state) => state.user);
   const { currentChatId } = useSelector((state) => state.chat);
-  const { socket } = useSocket();
+  const { socket, friendIsTypingMessages } = useSocket();
 
   // scroll when messages changes
   const messagesContainerRef = useRef(null);
@@ -37,29 +35,9 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
     };
   }, [socket, currentChatId]);
 
-  // check if the friend is currently typing messages or not
-  useEffect(() => {
-    if (socket === null) return;
-    socket.on("getIsTyping", (typingDetails) => {
-      if (currentChatId !== typingDetails.chatId) return;
-      setFriendIsTypingMessages(true);
-    });
-
-    return () => socket.off("getIsTyping");
-  }, [socket, currentChatId]);
-
-  // set the isTyping to false after 1 sec
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setFriendIsTypingMessages(false);
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
-  }, [friendIsTypingMessages]);
-
   if (messages?.length === 0) {
     return (
-      <div className="flex-1 flex justify-center items-center">
+      <div className="flex-1 flex flex-col justify-center items-center relative">
         <p className="text-sm md:text-xl">Send message</p>
       </div>
     );
@@ -68,7 +46,7 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
   return (
     <div
       ref={messagesContainerRef}
-      className="flex-1 flex gap-2 flex-col max-w-full p-2 scrollable-div scrollbar-style scroll-smooth"
+      className="flex-1 flex gap-2 flex-col max-w-full p-2 scrollable-div scrollbar-style scroll-smooth relative"
     >
       {messages?.map((item, index) => (
         <div
@@ -97,8 +75,6 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
           </div>
         </div>
       ))}
-      {/* typing animation */}
-      {friendIsTypingMessages && <TypingAnimation />}
     </div>
   );
 };

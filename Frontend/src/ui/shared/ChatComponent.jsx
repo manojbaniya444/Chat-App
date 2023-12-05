@@ -23,11 +23,11 @@ const ChatComponent = () => {
   }
 
   return (
-    <div className="text-xs md:text-base py-2 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
+    <div className="text-xs md:text-base py-1 px-2 text-white  flex flex-1 flex-col gap-1 h-[1px]">
       {/* to make the scrollable message component */}
-      {/* <h1 className="text-center font-bold text-xl md:text-2xl">
+      <h1 className="bg-zinc-900 p-1 text-center font-normal text-sm md:text-base">
         {currentChat.fullName}
-      </h1> */}
+      </h1>
       <MessageList
         messages={allMessages}
         setMessages={setAllMessages}
