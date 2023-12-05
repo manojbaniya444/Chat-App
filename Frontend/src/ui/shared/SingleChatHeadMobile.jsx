@@ -3,6 +3,7 @@ import Avatar from "../components/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { fetchMessages, currentChatWith } from "../../app/index";
+import { getUserByUserId } from "../../utils/getUserByUserId";
 
 const SingleChatHeadMobile = ({ chatData }) => {
   const [user, setUser] = useState();
@@ -24,12 +25,11 @@ const SingleChatHeadMobile = ({ chatData }) => {
 
   // fetching the users data for the display in the chat list
   useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `http://localhost:8080/api/user/single-user/${friendId[0]}`
-      );
-      setUser(response?.data.user);
-    })();
+    const fetchUser = async () => {
+      const response = await getUserByUserId(friendId[0]);
+      setUser(response);
+    };
+    fetchUser();
   }, [chatData]);
 
   // fetching the messages of the selected chat to display in the chat component
