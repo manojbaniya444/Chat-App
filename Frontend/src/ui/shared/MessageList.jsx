@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Avatar, TypingAnimation } from "../../ui";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSocket } from "../../socketContext/Context";
 import TimeAgo from "../components/TimeAgo";
 import ChatSkeletonLoader from "../components/ChatSkeletonLoader";
 
-const MessageList = ({ messages, setMessages, friendName, url }) => {
+const MessageList = ({ messages, setMessages, url }) => {
   const { authData } = useSelector((state) => state.user);
   const { currentChatId, messagesLoading } = useSelector((state) => state.chat);
   const { socket, friendIsTypingMessages } = useSocket();
@@ -49,9 +49,7 @@ const MessageList = ({ messages, setMessages, friendName, url }) => {
       ref={messagesContainerRef}
       className="flex-1 flex gap-2 flex-col max-w-full p-2 scrollable-div scrollbar-style scroll-smooth relative"
     >
-      {messagesLoading && (
-          <ChatSkeletonLoader />
-      )}
+      {messagesLoading && <ChatSkeletonLoader />}
       {!messagesLoading &&
         messages?.map((item, index) => (
           <div
