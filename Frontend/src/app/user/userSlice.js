@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserThunk, fetchUsersThunk, loginUserThunk } from "./userAPI";
+import {
+  createUserThunk,
+  fetchUsersThunk,
+  fetchUsersWithMatchedUsernameThunk,
+  loginUserThunk,
+} from "./userAPI";
 
 const userToken = localStorage.getItem("token")
   ? localStorage.getItem("token")
@@ -15,7 +20,7 @@ export const initialState = {
   token: userToken,
   loginSuccess: false,
   signupSuccess: false,
-  users: null, // all the users
+  users: [], // all the users
   activeUsers: [], // those users who are currently active
 };
 
@@ -63,6 +68,29 @@ export const fetchUsers = createAsyncThunk("user/fetch", async () => {
     console.log("Error fetching users");
   }
 });
+
+//---> Get all users with matched username
+export const fetchUsersWithMatchedUsername = createAsyncThunk(
+  "user/search",
+  async (username) => {
+    try {
+      const response = await fetchUsersWithMatchedUsernameThunk(
+        initialState.token,
+        username
+      );
+      if (response.status === 200) {
+        return response.data.users;
+      }
+    } catch (error) {
+      console.log(
+        "Error fetching users with matched username",
+        username,
+        error
+      );
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -127,6 +155,13 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchUsersWithMatchedUsername.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchUsersWithMatchedUsername.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
       });
   },
 });

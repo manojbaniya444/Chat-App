@@ -7,6 +7,7 @@ const {
   loginController,
   getAllUsersController,
   getSingleUserController,
+  getUsersWithMatchedUsernameController,
 } = require("../controllers/user.controller");
 const { verifyAuthentication } = require("../middlewares/auth.middleware");
 
@@ -23,5 +24,6 @@ router.post(
 router.post("/login", loginController);
 router.get("/all-users", verifyAuthentication, getAllUsersController);
 router.get("/single-user/:id", getSingleUserController);
+router.post("/search-users", getUsersWithMatchedUsernameController);
 
 module.exports = router;

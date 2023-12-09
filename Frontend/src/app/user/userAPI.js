@@ -36,3 +36,22 @@ export const fetchUsersThunk = async (token) => {
     console.log(error);
   }
 };
+
+export const fetchUsersWithMatchedUsernameThunk = async (token, username) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8080/api/user/search-users`,
+      {
+        username,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
