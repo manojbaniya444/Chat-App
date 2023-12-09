@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "../../ui";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMessages } from "../../app/index";
 import { currentChatWith } from "../../app/chat/chatSlice";
+import { getUserByUserId } from "../../utils/getUserByUserId";
 
 const SingleChatHead = ({ chats: data }) => {
   const [user, setUser] = useState(null);
@@ -25,12 +25,11 @@ const SingleChatHead = ({ chats: data }) => {
 
   // fetching the users data for the display in the chat list
   useEffect(() => {
-    (async () => {
-      const response = await axios.get(
-        `http://localhost:8080/api/user/single-user/${friendId[0]}`
-      );
-      setUser(response?.data.user);
-    })();
+    const fetchUser = async () => {
+      const response = await getUserByUserId(friendId[0]);
+      setUser(response);
+    };
+    fetchUser();
   }, [data]);
 
   // fetching the messages of the selected chat to display in the chat component

@@ -23,7 +23,7 @@ const SingleUser = ({ data }) => {
 
   return (
     <div
-      className="flex gap-2 items-center text-xl font-semibold bg-white p-2 rounded-md cursor-pointer outline-none"
+      className="flex gap-2 items-center text-sm md:text-base font-semibold bg-zinc-900 p-2 rounded-md cursor-pointer outline-none"
       onClick={() => selectUserChatHandler(data._id)}
     >
       <Avatar src={data.url} size="lg" />

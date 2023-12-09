@@ -102,8 +102,8 @@ const fetchChatController = async (req, res) => {
 
   // later on add the infinite scroll to fetch more messages
   const messages = await Message.find({ chatId })
+    .sort({ createdAt: 1 })
     .limit(70)
-    .sort({ createdAt: 1 });
   return res.status(200).json({
     success: true,
     message: "Messages of chat fetch success.",

@@ -66,8 +66,8 @@ const ChatMenu = () => {
       {/* to search chatlist */}
       <input
         type="search"
-        className="bg-gray-300 text-black h-[30px] md:h-[40px]"
-        placeholder="search here"
+        className="bg-gray-300 text-sm text-black h-[30px] md:h-[40px]"
+        placeholder="sajaawat ko laagi : ("
       />
       {/* notifications */}
       <div className="relative">

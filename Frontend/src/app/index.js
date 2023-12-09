@@ -4,6 +4,7 @@ export {
   logout,
   setActiveUsers,
   fetchUsers,
+  fetchUsersWithMatchedUsername
 } from "./user/userSlice";
 export {
   createChat,

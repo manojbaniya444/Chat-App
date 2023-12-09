@@ -14,21 +14,21 @@ const Menu = () => {
       src: <FaUserAlt />,
       link: "/search-friends",
     },
-    {
-      type: "Join Group",
-      src: <HiUserGroup />,
-    },
-    {
-      type: "Friend List",
-      src: <BiSolidMessageRoundedAdd />,
-    },
-    {
-      type: "Setting",
-      src: <FiSettings />,
-    },
+    // {
+    //   type: "Join Group",
+    //   src: <HiUserGroup />,
+    // },
+    // {
+    //   type: "Friend List",
+    //   src: <BiSolidMessageRoundedAdd />,
+    // },
+    // {
+    //   type: "Setting",
+    //   src: <FiSettings />,
+    // },
   ];
   return (
-    <div className="flex gap-1 bg-zinc-900 justify-evenly items-center h-[70px]">
+    <div className="flex gap-1 bg-zinc-900 items-center pl-2 h-[70px]">
       {list.map((item, index) => {
         return (
           <div className="flex flex-col gap-1 items-center" key={index}>

@@ -14,14 +14,14 @@ const MobileMenu = ({ setMobileView }) => {
       src: <FaUserAlt />,
       link: "/search-friends",
     },
-    {
-      type: "Join Group",
-      src: <HiUserGroup />,
-    },
-    {
-      type: "Friend List",
-      src: <BiSolidMessageRoundedAdd />,
-    },
+    // {
+    //   type: "Join Group",
+    //   src: <HiUserGroup />,
+    // },
+    // {
+    //   type: "Friend List",
+    //   src: <BiSolidMessageRoundedAdd />,
+    // },
     {
       type: "Setting",
       src: <FiSettings />,

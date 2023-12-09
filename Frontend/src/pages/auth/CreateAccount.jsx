@@ -41,10 +41,10 @@ const CreateAccount = () => {
   }, [signupSuccess]);
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen flex-col gap-2">
+    <div className="flex items-center justify-center w-screen h-screen flex-col gap-2 bg-zinc-900 text-white">
       <h1 className="text-xl md:text-2xl font-bold">Sign Up</h1>
       <form
-        className="bg-gray-200 p-5 flex flex-col gap-2"
+        className="bg-zinc-950 p-5 flex flex-col gap-2"
         onSubmit={(e) => createUserHandler(e)}
       >
         {/* error message to show if any */}
@@ -66,6 +66,7 @@ const CreateAccount = () => {
           <input
             type="text"
             placeholder="Enter unique username"
+            className="text-black"
             required
             value={form.username}
             onChange={(e) =>
@@ -82,6 +83,7 @@ const CreateAccount = () => {
           <input
             type="password"
             placeholder="password"
+            className="text-black"
             required
             value={form.password}
             onChange={(e) =>
@@ -94,6 +96,7 @@ const CreateAccount = () => {
           <input
             type="text"
             placeholder="Enter your full name"
+            className="text-black"
             required
             value={form.fullName}
             onChange={(e) =>
@@ -101,10 +104,12 @@ const CreateAccount = () => {
             }
           />
         </div>
-        <div className="text-sm">
-          <label>Select profile picture</label>
+        <div className="text-sm self-center p-2">
+          <label htmlFor="image">Upload Profile Picture</label>
+
           <input
             name="file"
+            id="image"
             type="file"
             accept="image/*"
             required

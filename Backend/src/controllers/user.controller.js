@@ -121,9 +121,24 @@ const getSingleUserController = async (req, res) => {
     .json({ success: true, message: "Get single user success", user });
 };
 
+//----->get users with matched username controller
+const getUsersWithMatchedUsernameController = async (req, res) => {
+  const {username} = req.body;
+  if (!username) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Username required for fetch" });
+  }
+  const users = await User.find({ username: { $regex: username } });
+  return res
+    .status(200)
+    .json({ success: true, message: "Get users with matched username", users });
+};
+
 module.exports = {
   createAccountController,
   loginController,
   getAllUsersController,
   getSingleUserController,
+  getUsersWithMatchedUsernameController
 };

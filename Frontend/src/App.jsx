@@ -26,9 +26,10 @@ const App = () => {
 
   // fetch all users
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
-
+    if (authData) {
+      dispatch(fetchUsers());
+    }
+  }, [authData]);
   //
   return (
     <BrowserRouter>
