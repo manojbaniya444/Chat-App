@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const userRoute = require("./routes/user.route");
-const chatRoute = require("./routes/chat.route");
-const { verifyAuthentication } = require("./middlewares/auth.middleware");
+const userRoute = require("./src/routes/user.route");
+const chatRoute = require("./src/routes/chat.route");
+const { verifyAuthentication } = require("./src/middlewares/auth.middleware");
+const path = require("path");
 
 const app = express();
 
@@ -27,11 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoute);
 app.use("/api/chat", verifyAuthentication, chatRoute);
 
+// deployment code
+const __directoryName = path.resolve();
+app.use(express.static(path.join(__directoryName, "../Frontend/dist")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__directoryName, "../Frontend/dist/index.html"))
+);
+
 // socket io events
 let activeUsers = [];
 io.on("connection", (socket) => {
-  console.log("Connected to socket server.", socket.id);
-
   //-->adding new user
   socket.on("newUser", (userId) => {
     // first check if the user is already present in the list or not if not then push the user in the list with the user id and socket ID
@@ -97,7 +103,6 @@ io.on("connection", (socket) => {
     activeUsers = onlineUsersAfterDisconnect;
     // emitting the active users after userdisconnects
     io.emit("getActiveUsers", onlineUsersAfterDisconnect);
-    console.log("User with socketid: " + socket.id + " Disconnects");
   });
 });
 
