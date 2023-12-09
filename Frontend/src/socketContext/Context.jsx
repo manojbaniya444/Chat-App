@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const SocketContext = createContext();
 
-const ENDPOINT = import.meta.env.ENDPOINT || "http://localhost:8080";
+const ENDPOINT = "https://kurakaani.onrender.com/";
 //
 
 export const SocketProvider = ({ children }) => {
