@@ -3,7 +3,7 @@ import axios from "axios";
 export const createUserThunk = async (userData) => {
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/user/create-account",
+      "/api/user/create-account",
       userData
     );
     return response;
@@ -14,7 +14,7 @@ export const createUserThunk = async (userData) => {
 
 export const loginUserThunk = async (userData) => {
   try {
-    return await axios.post("http://localhost:8080/api/user/login", userData);
+    return await axios.post("/api/user/login", userData);
   } catch (error) {
     return error;
   }
@@ -23,7 +23,7 @@ export const loginUserThunk = async (userData) => {
 export const fetchUsersThunk = async (token) => {
   try {
     const response = await axios.get(
-      "http://localhost:8080/api/user/all-users",
+      "/api/user/all-users",
       // {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export const fetchUsersThunk = async (token) => {
 export const fetchUsersWithMatchedUsernameThunk = async (token, username) => {
   try {
     const response = await axios.post(
-      `http://localhost:8080/api/user/search-users`,
+      `/api/user/search-users`,
       {
         username,
       },

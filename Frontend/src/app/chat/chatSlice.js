@@ -19,7 +19,7 @@ export const createChat = createAsyncThunk(
   async (participants, token) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/chat/new-chat",
+        "/api/chat/new-chat",
         {
           participants,
         }
@@ -40,7 +40,7 @@ export const fetchChats = createAsyncThunk(
   async (participantId) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/chat/all-chats",
+        "/api/chat/all-chats",
         {
           id: participantId,
         }
@@ -62,7 +62,7 @@ export const fetchMessages = createAsyncThunk(
   async (chatId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/chat/${chatId}`
+        `/api/chat/${chatId}`
         // {
         //   headers: {
         //     Authorization: `Bearer ${userToken}`,
@@ -85,7 +85,7 @@ export const sendMessages = createAsyncThunk(
     try {
       const { sender, receiver, chatId, message } = chatDetails;
       const response = await axios.post(
-        `http://localhost:8080/api/chat/send-message/${chatId}`,
+        `/api/chat/send-message/${chatId}`,
         { sender, receiver, message },
         {
           headers: {
