@@ -86,12 +86,12 @@ export const sendMessages = createAsyncThunk(
       const { sender, receiver, chatId, message } = chatDetails;
       const response = await axios.post(
         `/api/chat/send-message/${chatId}`,
-        { sender, receiver, message },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        { sender, receiver, message }
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${userToken}`,
+        //   },
+        // }
       );
     } catch (error) {
       console.log("Error sending message: ", error);

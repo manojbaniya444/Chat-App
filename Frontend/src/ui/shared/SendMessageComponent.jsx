@@ -56,7 +56,7 @@ const SendMessageComponent = ({
     // emit the stop message signal when sending message
     socket && socket.emit("send stop typing", { senderId, receiverId, chatId });
 
-    const response = await dispatch(sendMessages(chatDetails));
+    await dispatch(sendMessages(chatDetails));
     setMessage("");
     // after message sent emit the socket to send new message
     if (socket === null) return;
