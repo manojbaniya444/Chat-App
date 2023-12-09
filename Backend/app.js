@@ -77,22 +77,22 @@ io.on("connection", (socket) => {
   });
 
   // typing event
-  socket.on("send typing", (typingDetails) => {
-    const receiverUser = activeUsers?.find(
-      (user) => user.userId === typingDetails.receiverId
-    );
-    if (!receiverUser) return;
+  // socket.on("send typing", (typingDetails) => {
+  //   const receiverUser = activeUsers?.find(
+  //     (user) => user.userId === typingDetails.receiverId
+  //   );
+  //   if (!receiverUser) return;
 
-    io.to(receiverUser.socketId).emit("get typing", typingDetails);
-  });
-  socket.on("send stop typing", (typingDetails) => {
-    const receiverUser = activeUsers?.find(
-      (user) => user.userId === typingDetails.receiverId
-    );
-    if (!receiverUser) return;
+  //   io.to(receiverUser.socketId).emit("get typing", typingDetails);
+  // });
+  // socket.on("send stop typing", (typingDetails) => {
+  //   const receiverUser = activeUsers?.find(
+  //     (user) => user.userId === typingDetails.receiverId
+  //   );
+  //   if (!receiverUser) return;
 
-    io.to(receiverUser.socketId).emit("get stop typing", typingDetails);
-  });
+  //   io.to(receiverUser.socketId).emit("get stop typing", typingDetails);
+  // });
 
   // on disconnecting event
   socket.on("disconnect", () => {
