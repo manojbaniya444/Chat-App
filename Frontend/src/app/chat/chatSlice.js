@@ -22,12 +22,12 @@ export const createChat = createAsyncThunk(
         "http://localhost:8080/api/chat/new-chat",
         {
           participants,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken || token}`,
-          },
         }
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${userToken || token}`,
+        //   },
+        // }
       );
     } catch (error) {
       console.log(error);
@@ -43,12 +43,12 @@ export const fetchChats = createAsyncThunk(
         "http://localhost:8080/api/chat/all-chats",
         {
           id: participantId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
         }
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${userToken}`,
+        //   },
+        // }
       );
       if (response.status === 200) return response.data.chats;
     } catch (error) {
@@ -62,12 +62,12 @@ export const fetchMessages = createAsyncThunk(
   async (chatId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/chat/${chatId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+        `http://localhost:8080/api/chat/${chatId}`
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${userToken}`,
+        //   },
+        // }
       );
       if (response.status === 200) {
         const messages = response.data.messages;
@@ -125,6 +125,7 @@ const chatSlice = createSlice({
       })
       .addCase(fetchMessages.pending, (state, action) => {
         state.messagesLoading = true;
+        state.messages = [];
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
         state.messagesLoading = false;

@@ -9,7 +9,7 @@ const Users = ({ users, loading, username }) => {
       </p>
     );
 
-  if (users.length === 0 && username) {
+  if (users && users.length === 0 && username) {
     return (
       <p className="text-white text-center mt-20 text-base md:text-xl">
         Users with the username not found.
@@ -23,7 +23,7 @@ const Users = ({ users, loading, username }) => {
       <p className="text-sm font-light">
         Add them to your chat list by clicking.
       </p>
-      <div className="bg-zinc-800 text-white mt-5 p-5 max-h-[500px] flex gap-5 flex-col rounded-md overflow-y-auto scrollbar-style">
+      <div className="bg-zinc-800 text-white mt-5 p-2 max-h-[500px] flex gap-2 flex-col rounded-md overflow-y-auto scrollbar-style">
         {users?.map((item) => {
           return <SingleUser key={item._id} data={item} />;
         })}

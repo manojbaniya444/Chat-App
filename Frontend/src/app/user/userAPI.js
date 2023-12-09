@@ -24,11 +24,11 @@ export const fetchUsersThunk = async (token) => {
   try {
     const response = await axios.get(
       "http://localhost:8080/api/user/all-users",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }
     );
 
     return response;
@@ -44,11 +44,11 @@ export const fetchUsersWithMatchedUsernameThunk = async (token, username) => {
       {
         username,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }
     );
     return response;
   } catch (error) {

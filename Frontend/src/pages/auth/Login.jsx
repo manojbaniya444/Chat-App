@@ -38,10 +38,10 @@ const Login = () => {
   }, [loginSuccess, authData, token]);
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen flex-col gap-2">
+    <div className="flex items-center justify-center w-screen h-screen flex-col gap-2 bg-zinc-900 text-white">
       <h1 className="text-xl md:text-2xl font-bold">Login</h1>
       <form
-        className="bg-gray-200 p-5 flex flex-col gap-2 rounded-md"
+        className="bg-zinc-950 p-5 flex flex-col gap-2 rounded-md"
         onSubmit={loginUserHandler}
       >
         {error && (
@@ -52,6 +52,7 @@ const Login = () => {
           <input
             type="text"
             placeholder="Enter registered username"
+            className="text-black"
             required
             value={formData.username}
             onChange={(e) =>
@@ -64,6 +65,7 @@ const Login = () => {
           <input
             type="password"
             placeholder="password"
+            className="text-black"
             required
             value={formData.password}
             onChange={(e) =>

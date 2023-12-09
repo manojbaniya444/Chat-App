@@ -60,7 +60,7 @@ export const loginUser = createAsyncThunk(
 //---> Get all user Function
 export const fetchUsers = createAsyncThunk("user/fetch", async () => {
   try {
-    const response = await fetchUsersThunk(initialState.token);
+    const response = await fetchUsersThunk(initialState.token || userToken);
     if (response.status === 200) {
       return response.data.users;
     }

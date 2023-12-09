@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchChats } from "../../app/index";
 
 const ChatList = () => {
-  const { authData } = useSelector((state) => state.user);
+  const { authData, token } = useSelector((state) => state.user);
   const { chats } = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
@@ -12,8 +12,8 @@ const ChatList = () => {
     if (!authData._id) {
       return;
     }
-    dispatch(fetchChats(authData._id));
-  }, [authData]);
+    dispatch(fetchChats(authData._id, token));
+  }, [authData, token]);
 
   return (
     <div className="flex-1 bg-zinc-950 text-white  p-2 flex flex-col gap-2 overflow-y-auto scrollbar-style">
