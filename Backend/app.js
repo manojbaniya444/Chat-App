@@ -11,14 +11,14 @@ const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://kurakaani.onrender.com",
   },
 });
 
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://kurakaani.onrender.com/",
+    origin: "*",
     credentials: true,
   })
 );
